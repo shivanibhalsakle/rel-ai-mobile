@@ -1,0 +1,15 @@
+[project]
+name = "relai-backend"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Shivani Bhalsakle", email = "100023956+shivanibhalsakle@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.141.1",
+    "uvicorn[standard]>=0.52.1",
+]
+
+[tool.uv]
+package = false
