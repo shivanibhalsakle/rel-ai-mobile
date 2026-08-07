@@ -1,11 +1,10 @@
 package com.shivanibhalsakle.relai
 
-package com.shivanibhalsakle.relai
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.shivanibhalsakle.relai.network.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -30,11 +29,13 @@ class AuthViewModel : ViewModel() {
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
                 val result = FirebaseAuth.getInstance().signInWithCredential(credential).await()
                 val uid = result.user?.uid
-                _uiState.value = if (uid != null) {
-                    AuthUiState.Success(uid)
-                } else {
-                    AuthUiState.Error("Sign-in succeeded but no user returned")
+                if (uid == null) {
+                    _uiState.value = AuthUiState.Error("Sign-in succeeded but no user returned")
+                    return@launch
                 }
+
+                val meResponse = RetrofitClient.apiService.getMe()
+                _uiState.value = AuthUiState.Success(meResponse.uid)
             } catch (e: Exception) {
                 _uiState.value = AuthUiState.Error(e.message ?: "Sign-in failed")
             }
