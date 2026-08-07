@@ -20,10 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             RelaiTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    SignInScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

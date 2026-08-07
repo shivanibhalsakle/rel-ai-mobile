@@ -3,7 +3,7 @@ from fastapi import Header, HTTPException
 from firebase_admin import auth as firebase_auth
 
 if not firebase_admin._apps:
-    firebase_admin.initialize_app
+    firebase_admin.initialize_app()
 
 async def get_current_user(authorization:str=Header(...))->dict:
     if not authorization.startswith("Bearer "):
