@@ -26,6 +26,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
 
 @Composable
 fun SignInScreen(modifier: Modifier = Modifier, viewModel: AuthViewModel = viewModel()) {
