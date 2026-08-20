@@ -27,12 +27,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier, viewModel: AuthViewModel = viewModel()) {
+fun SignInScreen(modifier: Modifier = Modifier, viewModel: AuthViewModel = viewModel(), onSignedIn: () -> Unit = {}) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(uiState) {
+        if (uiState is AuthUiState.Success) {
+            onSignedIn()
+        }
+    }
 
     Column(
         modifier = modifier.fillMaxSize().padding(24.dp),
