@@ -5,6 +5,7 @@ from datetime import UTC, datetime, timedelta
 
 import httpx
 
+from app.core.rate_limit import check_and_increment
 from app.db.firestore import db
 
 CACHE_TTL = timedelta(hours=1)
@@ -28,6 +29,7 @@ async def get_hourly_forecast(latitude: float, longitude: float, hours: int = 24
             return cached_data["forecast"]
 
     print(f"[WeatherProvider] cache miss ({cache_key}), calling Weather API")
+    check_and_increment("weather", max_calls=10, window=timedelta(minutes=1))
     api_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
     async with httpx.AsyncClient() as client:

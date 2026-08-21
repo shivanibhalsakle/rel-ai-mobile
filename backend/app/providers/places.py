@@ -5,6 +5,7 @@ from datetime import UTC, datetime, timedelta
 
 import httpx
 
+from app.core.rate_limit import check_and_increment
 from app.db.firestore import db
 
 CACHE_TTL = timedelta(hours=24)
@@ -42,6 +43,7 @@ async def search_nearby_places(
             return cached_data["places"]
 
     print(f"[PlacesProvider] cache miss ({cache_key}), calling Places API")
+    check_and_increment("places", max_calls=10, window=timedelta(minutes=1))
     api_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
     async with httpx.AsyncClient() as client:
