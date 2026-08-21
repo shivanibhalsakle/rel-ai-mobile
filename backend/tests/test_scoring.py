@@ -7,16 +7,16 @@ from app.scoring.workspace_scoring import score_workspace_candidate
 
 
 def _candidate(**overrides) -> PlaceCandidate:
-    defaults = dict(
-        place_id="p1",
-        name="Test Place",
-        rating=4.0,
-        user_rating_count=100,
-        price_level="PRICE_LEVEL_MODERATE",
-        types=["gym"],
-    )
-    defaults.update(overrides)
-    return PlaceCandidate(**defaults)
+        defaults = {
+        "place_id": "p1",
+        "name": "Test Place",
+        "rating": 4.0,
+        "user_rating_count": 100,
+        "price_level": "PRICE_LEVEL_MODERATE",
+        "types": ["gym"],
+    }
+        defaults.update(overrides)
+        return PlaceCandidate(**defaults)
 
 
 class TestFitnessScoring:

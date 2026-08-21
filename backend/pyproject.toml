@@ -25,7 +25,7 @@ dev = [
 ]
 
 [tool.ruff.lint]
-ignore = ["B008"]
+ignore = ["B008", "UP046", "UP047"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
