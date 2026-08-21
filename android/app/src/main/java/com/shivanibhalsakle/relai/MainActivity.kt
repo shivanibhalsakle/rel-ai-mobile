@@ -57,7 +57,10 @@ class MainActivity : ComponentActivity() {
                                     OnboardingScreen(onOnboardingComplete = { appViewModel.checkStartState() })
                                 }
                                 composable("home") {
-                                    // placeholder for now
+                                    HomeScreen(onOpenSettings = { navController.navigate("settings") })
+                                }
+                                composable("settings") {
+                                    OnboardingScreen(onOnboardingComplete = { navController.popBackStack() })
                                 }
                             }
                         }

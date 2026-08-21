@@ -62,4 +62,32 @@ class OnboardingViewModel : ViewModel() {
             }
         }
     }
+
+    init { loadExistingPreferences()}
+    
+    private fun loadExistingPreferences() {
+        viewModelScope.launch {
+            try {
+                val status = RetrofitClient.apiService.getOnboardingStatus()
+                val prefs = status.preferences ?: return@launch
+                activitiesText = prefs.activities.joinToString(", ")
+                budgetMin = prefs.budgetBand?.min?.toString() ?: ""
+                budgetMax = prefs.budgetBand?.max?.toString() ?: ""
+                budgetPeriod = prefs.budgetBand?.period ?: "month"
+                maxTravelMinutes = prefs.maxTravelMinutes?.toString() ?: ""
+                travelMode = prefs.travelMode ?: "walk"
+                minRating = prefs.minRating?.toString() ?: ""
+                wifiNeeded = prefs.workspaceNeeds.wifi
+                outletsNeeded = prefs.workspaceNeeds.outlets
+                quietNeeded = prefs.workspaceNeeds.quiet
+                foodNeeded = prefs.workspaceNeeds.food
+                workoutTimesText = prefs.preferredWorkoutTimes.joinToString(", ")
+                indoorOutdoorPreference = prefs.indoorOutdoorPreference
+            } catch (e: Exception) {
+                // no existing preferences (or a transient failure) — fine to just leave the form blank
+            }
+        }
+    }
 }
+
+

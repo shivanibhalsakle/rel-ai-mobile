@@ -17,7 +17,10 @@ interface ApiService {
 
 data class MeResponse(val uid: String)
 
-data class OnboardingStatusResponse(val onboardingCompleted: Boolean)
+data class OnboardingStatusResponse(
+    val onboardingCompleted: Boolean,
+    val preferences: OnboardingRequestBody? = null
+)
 
 data class BudgetBandBody(
     val min: Double,
@@ -48,3 +51,4 @@ data class OnboardingResponseBody(
     val status: String,
     val preferencesId: String
 )
+
