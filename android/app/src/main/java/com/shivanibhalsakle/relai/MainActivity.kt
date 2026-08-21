@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                                     SignInScreen(onSignedIn = { appViewModel.checkStartState() })
                                 }
                                 composable("onboarding") {
-                                    // next step: real onboarding form goes here
+                                    OnboardingScreen(onOnboardingComplete = { appViewModel.checkStartState() })
                                 }
                                 composable("home") {
                                     // placeholder for now
