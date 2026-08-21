@@ -66,7 +66,7 @@ def score_route_candidate(
                 factor="road_exposure",
                 score=normalize(road_exposure_ratio, low=0, high=1, invert=True),
                 weight=ROAD_EXPOSURE_WEIGHT,
-                detail="Lower-traffic based on available data -- not a safety guarantee",
+                detail="Lower-traffic based on available data, not a guarantee",
                 confidence="estimated",
             )
         )
